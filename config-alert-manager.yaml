@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+spec:
+  route:
+    groupBy: ['alertname']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 3h
+    receiver: webhook
+  receivers:
+    - name: webhook
+      webhookConfigs:
+        - url: 'http://flask-alert-webapp-svc.webapp.svc.cluster.local:5000/webhook'
+          sendResolved: true
+
