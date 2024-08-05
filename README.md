@@ -26,48 +26,46 @@ This project demonstrates how to:
 
 ## Setup and Installation
 
-### Prerequisites
-
-- Docker: Install Docker from [Docker's official website](https://docs.docker.com/get-docker/).
-- `kind`: Install `kind` from [kind.sigs.k8s.io](https://kind.sigs.k8s.io/).
-- `kubectl`: Install `kubectl` from [Kubernetes' official website](https://kubernetes.io/docs/tasks/tools/).
-- Python 3.10+: Install Python from [Python's official website](https://www.python.org/downloads/).
-
 Commands used in this projects
 
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
-helm install prometheus prometheus-community/kube-prometheus-stack
-docker build -t flask-alert-webapp .
-docker tag flask-alert-webapp vikramsingh8948/flask-alert-webapp
-docker push vikramsingh8948/flask-alert-webapp
-k rollout restart deploy flask-alert-webapp  -n webapp
-
-kubectl port-forward service/flask-alert-webapp 8000:5000 -n webapp
-
-curl -X POST http://localhost:80/webhook -H "Content-Type: application/json" -d '{"annotations": {"summary": "Test Alert", "description": "This is a test alert."}}'
-
-curl -X POST http://localhost:8000/webhook      -H "Content-Type: application/json"      -d '{
-            "annotations": {
-                "description": "Test alert description",
-                "summary": "Test alert summary"
-            },
-            "labels": {
-                "alertname": "TestAlert",
-                "severity": "HIGH"
-            },
-            "startsAt": "2024-08-04T07:31:57.339Z",
-            "status": "firing"
-        }'
-		
-
-
-curl -X POST http://localhost:8000/webhook -H "Content-Type: application/json" -d '{
-  "annotations": {
-    "summary": "High CPU Usage",
-    "description": "CPU usage exceeded 80%"
-  }
-}'
+      - Docker: Install Docker from [Docker's official website](https://docs.docker.com/get-docker/).
+      - `kind`: Install `kind` from [kind.sigs.k8s.io](https://kind.sigs.k8s.io/).
+      - `kubectl`: Install `kubectl` from [Kubernetes' official website](https://kubernetes.io/docs/tasks/tools/).
+      - Python 3.10+: Install Python from [Python's official website](https://www.python.org/downloads/).
+      
+      helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+      helm repo update
+      helm install prometheus prometheus-community/kube-prometheus-stack
+      docker build -t flask-alert-webapp .
+      docker tag flask-alert-webapp vikramsingh8948/flask-alert-webapp
+      docker push vikramsingh8948/flask-alert-webapp
+      k rollout restart deploy flask-alert-webapp  -n webapp
+      
+      kubectl port-forward service/flask-alert-webapp 8000:5000 -n webapp
+      
+      curl -X POST http://localhost:80/webhook -H "Content-Type: application/json" -d '{"annotations": {"summary": "Test Alert", "description": "This is a test alert."}}'
+      
+      curl -X POST http://localhost:8000/webhook      -H "Content-Type: application/json"      -d '{
+                  "annotations": {
+                      "description": "Test alert description",
+                      "summary": "Test alert summary"
+                  },
+                  "labels": {
+                      "alertname": "TestAlert",
+                      "severity": "HIGH"
+                  },
+                  "startsAt": "2024-08-04T07:31:57.339Z",
+                  "status": "firing"
+              }'
+      		
+      
+      
+      curl -X POST http://localhost:8000/webhook -H "Content-Type: application/json" -d '{
+        "annotations": {
+          "summary": "High CPU Usage",
+          "description": "CPU usage exceeded 80%"
+        }
+      }'
 
 
 ### Create a Kind Cluster
