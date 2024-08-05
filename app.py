@@ -23,7 +23,7 @@ def enrich_alert(alert):
     return alert
 
 def send_to_slack(alert):
-    slack_webhook_url = 'https://hooks.slack.com/services/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'
+    slack_webhook_url = 'https://hooks.slack.com/services/**************************'
     annotations = alert.get('annotations', {})
     summary = annotations.get('summary', 'No summary provided')
     description = annotations.get('description', 'No description provided')
